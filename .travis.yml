@@ -9,4 +9,9 @@ node_js:
 - '6'
 branches:
  except:
+<<<<<<< HEAD
  - /^v\d+\.\d+\.\d+$/
+=======
+ - /^v\d+\.\d+\.\d+$/
+ 
+	>>>>>> a8af4ec958752c3af4294e5b56f53d47b2ba1236
