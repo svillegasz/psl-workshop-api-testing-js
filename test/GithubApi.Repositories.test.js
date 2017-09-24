@@ -1,19 +1,27 @@
 const agent = require('superagent-promise')(require('superagent'), Promise);
-const statusCode = require('http-status-codes');
-const chai = require('chai');
+const { expect } = require('chai');
 
-const { expect } = chai;
+describe('Github API: repositories tests', () => {
+  const endpoint = 'https://api.github.com/users/aperdomob';
+  let user;
 
-describe('Github repositories API Tests', () => {
+  before(() =>
+    agent.get(endpoint).then((res) => {
+      user = res.body;
+    }));
 
-  describe('Consume GET service', function() {
-    it('Should return the user information on GET request', () => 
-      agent.get('https://api.github.com/users/aperdomob').then((response) => {
-        expect(response.status).to.equal(statusCode.OK);
-        expect(response.body.company).to.equal('PSL');
-        expect(response.body.name).to.equal('Alejandro Perdomo');
-        expect(response.body.location).to.equal('Colombia');
-      })
-      );
+  it('Should return the user information', () => {
+    expect(user.company).to.equal('PSL');
+    expect(user.name).to.equal('Alejandro Perdomo');
+    expect(user.location).to.equal('Colombia');
   });
+
+  it('Should return the repository information', () =>
+    agent.get(user.repos_url).then((response) => {
+      const repository = response.body.find(repo => repo.name === 'jasmine-awesome-report');
+      expect(repository.name).to.equal('jasmine-awesome-report');
+      expect(repository.description).to.equal('An awesome html report for Jasmine');
+      expect(repository.private).to.be.false;
+    }));
 });
+
