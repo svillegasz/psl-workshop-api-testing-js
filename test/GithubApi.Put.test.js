@@ -31,7 +31,6 @@ describe('Github Api Test', () => {
         }));
 
     describe('Idempotency', () => {
-
       before(() =>
         agent.put(`${urlBase}/user/following/${githubUserName}`)
           .auth('token', process.env.ACCESS_TOKEN)
