@@ -37,12 +37,12 @@ describe('Github API Test', () => {
 
       describe('Zip file', () => {
         before(() => {
-          const zipFile = fs.createWriteStream('repo.zip');
+          const zipFile = fs.createWriteStream('temp/repo.zip');
           return agent.get(`${repository.url}/zipball/`).pipe(zipFile);
         });
 
         it('Should save correctly', () => {
-          const zipFile = fs.readFileSync('repo.zip');
+          const zipFile = fs.readFileSync('temp/repo.zip');
           assert.isDefined(zipFile);
         });
       });
