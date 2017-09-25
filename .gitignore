@@ -4,9 +4,12 @@
 ## Reports ##
 report
 
+<<<<<<< HEAD
 ## Temporal ##
 temp
 
+=======
+>>>>>>> master
 ### Node ###
 # Logs
 logs
