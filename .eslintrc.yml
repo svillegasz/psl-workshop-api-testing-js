@@ -8,8 +8,4 @@ extends:
   - plugin:import/errors
   - plugin:import/warnings
 rules:
-<<<<<<< HEAD
   "comma-dangle": ["error", "never"]
-=======
-  "comma-dangle": ["error", "never"]
->>>>>>> master
