@@ -4,8 +4,8 @@
   "description": "This is a Workshop about Api Testing in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter mochawesome --reporter-options reportDir=report,reportFilename=ApiTesting -t 5000",
-    "lint": "eslint ./test/**/*.js"
+    "lint": "eslint ./test/**/*.js",
+    "test": "mocha --reporter mochawesome --reporter-options reportDir=report,reportFilename=ApiTesting -t 5000"    
   },
   "repository": {
     "type": "git",
