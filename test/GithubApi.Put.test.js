@@ -2,34 +2,56 @@ const agent = require('superagent-promise')(require('superagent'), Promise);
 const statusCode = require('http-status-codes');
 const { expect, assert } = require('chai');
 
-const urlBase = 'https://api.github.com/user/following';
+const urlBase = 'https://api.github.com';
 const githubUserName = 'aperdomob';
 
 describe('Github Api Test', () => {
   describe('PUT Service', () => {
-    it('Should return a no-content status', () =>
-      agent.put(`${urlBase}/${githubUserName}`)
+    let response;
+
+    before(() =>
+      agent.put(`${urlBase}/user/following/${githubUserName}`)
         .auth('token', process.env.ACCESS_TOKEN)
-        .then((response) => {
-          expect(response.status).to.equal(statusCode.NO_CONTENT);
-          assert.isEmpty(response.body);
+        .then((res) => {
+          response = res;
         }));
 
+    it('Should return a no-content status', () => {
+      expect(response.status).to.equal(statusCode.NO_CONTENT);
+      assert.isEmpty(response.body);
+    });
+
     it('Should follow the github user', () =>
-      agent.get(`${urlBase}`)
+      agent.get(`${urlBase}/user/following`)
         .auth('token', process.env.ACCESS_TOKEN)
-        .then((response) => {
-          const user = response.body.find(usr => usr.login === githubUserName);
+        .then((res) => {
+          const user = res.body.find(usr => usr.login === githubUserName);
           assert.exists(user);
           expect(user.login).to.equal(githubUserName);
         }));
 
-    it('Should be idempotent', () =>
-      agent.put(`${urlBase}/${githubUserName}`)
-        .auth('token', process.env.ACCESS_TOKEN)
-        .then((response) => {
-          expect(response.status).to.equal(statusCode.NO_CONTENT);
-          assert.isEmpty(response.body);
-        }));
+    describe('Idempotency', () => {
+
+      before(() =>
+        agent.put(`${urlBase}/user/following/${githubUserName}`)
+          .auth('token', process.env.ACCESS_TOKEN)
+          .then((res) => {
+            response = res;
+          }));
+
+      it('Should return a no-content status', () => {
+        expect(response.status).to.equal(statusCode.NO_CONTENT);
+        assert.isEmpty(response.body);
+      });
+
+      it('Should follow the github user', () =>
+        agent.get(`${urlBase}/user/following`)
+          .auth('token', process.env.ACCESS_TOKEN)
+          .then((res) => {
+            const user = res.body.find(usr => usr.login === githubUserName);
+            assert.exists(user);
+            expect(user.login).to.equal(githubUserName);
+          }));
+    });
   });
 });
