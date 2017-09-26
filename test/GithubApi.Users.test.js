@@ -1,4 +1,5 @@
 const agent = require('superagent-promise')(require('superagent'), Promise);
+const responseTime = require('superagent-response-time');
 const statusCode = require('http-status-codes');
 const { expect } = require('chai');
 
@@ -6,6 +7,12 @@ const urlBase = 'https://api.github.com';
 
 describe.only('Github Api Test', () => {
   describe('Query params', () => {
+    it('Should respond in less than 5 seconds', () =>
+      agent.get(`${urlBase}/users`)
+        .use(responseTime((req, time) => {
+          expect(time).to.be.at.most(5000);
+        })));
+
     it('Should return 30 Users by default', () =>
       agent.get(`${urlBase}/users`)
         .then((response) => {
