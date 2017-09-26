@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const urlBase = 'https://api.github.com';
 
 describe.only('Github Api Test', () => {
-  describe('Users', () => {
+  describe('Query params', () => {
     it('Should return 30 Users by default', () =>
       agent.get(`${urlBase}/users`)
         .then((response) => {
