@@ -36,7 +36,7 @@ describe('Github API Test', () => {
           }));
 
       before(() => {
-        dir = 'temp';
+        dir = `${__dirname}/../temp`;
         if (!fs.existsSync(dir)) {
           fs.mkdirSync(dir);
         }
