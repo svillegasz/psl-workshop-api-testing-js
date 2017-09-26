@@ -19,5 +19,12 @@ describe.only('Github Api Test', () => {
       expect(res.status).to.equal(statusCode.MOVED_PERMANENTLY);
       expect(res.headers.location).to.equal('https://github.com/aperdomob/new-redirect-test');
     });
+
+    it('Should redirect on GET request', () =>
+      agent.get(`${urlBase}/${githubUserName}/redirect-test`)
+        .then((response) => {
+          expect(response.status).to.equal(statusCode.OK);
+          expect(response.type).to.equal('text/html');
+        }));
   });
 });
