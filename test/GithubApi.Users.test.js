@@ -6,14 +6,14 @@ const urlBase = 'https://api.github.com';
 
 describe.only('Github Api Test', () => {
   describe('Users', () => {
-    it('Should return a no-content status', () =>
+    it('Should return 30 Users by default', () =>
       agent.get(`${urlBase}/users`)
         .then((response) => {
           expect(response.status).to.equal(statusCode.OK);
           expect(response.body.length).to.equal(30);
         }));
 
-    it('Should return a no-content status', () => {
+    it('Should return 10 Users', () => {
       const limit = 10;
       return agent.get(`${urlBase}/users`)
         .query(`per_page=${limit}`)
@@ -23,7 +23,7 @@ describe.only('Github Api Test', () => {
         });
     });
 
-    it('Should return a no-content status', () => {
+    it('Should return 50 users', () => {
       const limit = 50;
       return agent.get(`${urlBase}/users`)
         .query(`per_page=${limit}`)
