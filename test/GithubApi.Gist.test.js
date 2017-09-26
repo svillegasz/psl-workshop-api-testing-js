@@ -4,7 +4,7 @@ const { expect } = require('chai');
 
 const urlBase = 'https://api.github.com';
 
-describe.only('Github Api Test', () => {
+describe('Github Api Test', () => {
   describe('Gists', () => {
     let response;
     let issue;
