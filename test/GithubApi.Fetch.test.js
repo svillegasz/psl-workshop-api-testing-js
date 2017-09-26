@@ -1,10 +1,10 @@
-require('isomorphic-fetch');
+const fetch = require('isomorphic-fetch');
 const statusCode = require('http-status-codes');
 const { expect } = require('chai');
 
 const urlBase = 'https://api.github.com';
 
-describe.only('Github Api Test', () => {
+describe('Github Api Test', () => {
   describe('Gists', () => {
     let resStatus;
     let gist;
