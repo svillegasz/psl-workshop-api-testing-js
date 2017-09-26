@@ -11,6 +11,7 @@ describe('Github Api Test', () => {
 
     before(() =>
       agent.head(`${urlBase}/${githubUserName}/redirect-test`)
+        .auth('token', process.env.ACCESS_TOKEN)
         .catch((response) => {
           res = response.response;
         }));
@@ -22,6 +23,7 @@ describe('Github Api Test', () => {
 
     it('Should redirect on GET request', () =>
       agent.get(`${urlBase}/${githubUserName}/redirect-test`)
+        .auth('token', process.env.ACCESS_TOKEN)
         .then((response) => {
           expect(response.status).to.equal(statusCode.OK);
           expect(response.type).to.equal('text/html');

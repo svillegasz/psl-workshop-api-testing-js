@@ -18,6 +18,7 @@ describe('First API Tests', () => {
     };
 
     return agent.get('https://httpbin.org/get')
+      .auth('token', process.env.ACCESS_TOKEN)
       .query(query)
       .then((response) => {
         expect(response.status).to.equal(statusCode.OK);
@@ -34,6 +35,7 @@ describe('First API Tests', () => {
 
     return agent
       .post('https://httpbin.org/post')
+      .auth('token', process.env.ACCESS_TOKEN)
       .send(body)
       .then((response) => {
         expect(response.status).to.equal(statusCode.OK);
