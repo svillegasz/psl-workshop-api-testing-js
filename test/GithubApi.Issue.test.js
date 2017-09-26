@@ -4,7 +4,7 @@ const { expect, assert } = require('chai');
 const urlBase = 'https://api.github.com';
 
 describe('Github Api Test', () => {
-  describe('User', () => {
+  describe('POST/PATCH Service', () => {
     let user;
 
     before(() => agent.get(`${urlBase}/user`)
