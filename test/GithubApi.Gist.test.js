@@ -1,10 +1,10 @@
 const agent = require('superagent-promise')(require('superagent'), Promise);
 const statusCode = require('http-status-codes');
-const { expect, assert } = require('chai');
+const { expect } = require('chai');
 
 const urlBase = 'https://api.github.com';
 
-describe('Github Api Test', () => {
+describe.only('Github Api Test', () => {
   describe('Gists', () => {
     let response;
     let issue;
@@ -19,7 +19,7 @@ describe('Github Api Test', () => {
       }
     };
 
-    beforeEach(() =>
+    before(() =>
       agent.post(`${urlBase}/gists`)
         .auth('token', process.env.ACCESS_TOKEN)
         .send(body)
@@ -55,8 +55,8 @@ describe('Github Api Test', () => {
       it('Should NOT exists', () =>
         agent.get(issue.url)
           .auth('token', process.env.ACCESS_TOKEN)
-          .then((res) => {
-            expect(res.status).to.equal(statusCode.NOT_FOUND);
+          .catch((res) => {
+            expect(res.response.status).to.equal(statusCode.NOT_FOUND);
           }));
     });
   });
