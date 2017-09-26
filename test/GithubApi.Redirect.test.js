@@ -5,7 +5,7 @@ const { expect, assert } = require('chai');
 const urlBase = 'https://github.com';
 const githubUserName = 'aperdomob';
 
-describe.only('Github Api Test', () => {
+describe('Github Api Test', () => {
   describe('HEAD Service', () => {
     let res;
 
